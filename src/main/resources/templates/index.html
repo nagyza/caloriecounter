@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Peer to peer app by nagyza</title>
-  <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <title>Calorie Table</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous"/>
   <link rel="stylesheet" href="css/my_style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"/>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta charset="UTF-8" />
 </head>
 <body>
-<h1>Calories</h1>
+  <h1>Calories</h1>
+  <br/>
+  <form method="get" action="/edit">
+    <button type="submit" class="pure-button pure-button-primary">Add new meal</button>
+  </form>
+  <br/>
+  <table class="pure-table pure-table-bordered">
+    <thead>
+      <tr class="headline">
+        <th>Type</th>
+        <th>Food description</th>
+        <th>Date</th>
+        <th>Calories</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="meal : ${meals}" >
+        <td th:text="${meal.type}"></td>
+        <td th:text="${meal.description}"></td>
+        <td th:text="${meal.date}"></td>
+        <td th:text="${meal.calorie}"></td>
+        <td>
+          <form method="get" action="/edit">
+            <button type="submit" class="pure-button pure-button-primary">Edit</button>
+          </form>
+        </td>
+        <td><button class="pure-button pure-button-primary">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>
