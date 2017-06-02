@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MealTypeRepository extends CrudRepository<MealType, Long> {
+  public Iterable<MealType> findAllByOrderByInDay();
 }
