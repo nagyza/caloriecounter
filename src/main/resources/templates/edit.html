@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Calorie Table</title>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="css/my_style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+</head>
+<body>
+  <h1>Calories</h1>
+  <br/>
+  <form method="get" action="/save">
+    <table class="pure-table pure-table-bordered">
+      <thead>
+        <tr class="headline">
+          <th>Type</th>
+          <th>Food description</th>
+          <th>Calories</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select>
+            <option th:each="mealtype : ${mealtypes}">
+              <span th:value="${mealtype.typeOfMeal}" th:text="${mealtype.typeOfMeal}"></span>
+            </option>
+            </select>
+          </td>
+          <td>
+            <input type="text" th:name="desc"/>
+          </td>
+          <td>
+            <input type="text" th:name="calories"/>
+          </td>
+          <td><button type="submit" value="save" class="pure-button pure-button-primary">Save</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</body>
+</html>
