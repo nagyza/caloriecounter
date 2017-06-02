@@ -13,6 +13,17 @@ public class MealType {
   @Column(name = "mealtype")
   private String typeOfMeal;
 
+  @Column(name = "ord")
+  private int inDay;
+
+  public int getInDay() {
+    return inDay;
+  }
+
+  public void setInDay(int inDay) {
+    this.inDay = inDay;
+  }
+
   public MealType() {
   }
 
