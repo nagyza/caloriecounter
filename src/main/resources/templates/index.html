@@ -34,12 +34,17 @@
         <td th:text="${meal.date}"></td>
         <td th:text="${meal.calorie}"></td>
         <td>
-          <form method="get" th:action="@{/edit}">
+          <form th:method="GET" th:action="@{/edit}">
             <input th:type="hidden" th:value="${meal.id}" th:name="edit_id" />
             <button type="submit" class="pure-button pure-button-primary">Edit</button>
           </form>
         </td>
-        <td><button class="pure-button pure-button-primary">Delete</button></td>
+        <td>
+          <form th:method="DELETE" th:action="@{/delete}">
+            <input th:type="hidden" th:value="${meal.id}" th:name="delete_id" />
+            <button class="pure-button pure-button-primary">Delete</button>
+          </form>
+        </td>
       </tr>
     </tbody>
   </table>

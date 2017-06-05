@@ -6,10 +6,7 @@ import com.greenfox.caloriecounter.repository.MealTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
@@ -59,6 +56,12 @@ public class MainController {
     mealRepository.findOne(id).setDescription(desc);
     mealRepository.findOne(id).setCalorie(calorie);
     mealRepository.save(mealRepository.findOne(id));
+    return "redirect:/";
+  }
+
+  @DeleteMapping(value = "/delete")
+  public String deleteMeal(@RequestParam(name = "delete_id") long id) {
+    mealRepository.delete(id);
     return "redirect:/";
   }
 }
