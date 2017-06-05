@@ -6,6 +6,8 @@ import com.greenfox.caloriecounter.repository.MealTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,14 +28,37 @@ public class MainController {
   }
 
   @RequestMapping(value = "/edit")
-  public String editPage(Model model) {
+  public String editPage(Model model, @RequestParam(required = false, name = "edit_id") Long id) {
+    model.addAttribute("editId", id);
+    model.addAttribute("mealToEdit", mealRepository.findOne(id));
     model.addAttribute("mealtypes", mealTypeRepository.findAllByOrderByInDay());
     return "edit";
   }
 
-  @RequestMapping(value = "/save")
-  public String saveEdit(@RequestParam String type, @RequestParam String desc, @RequestParam int calories) {
-    mealRepository.save(new Meal(type, desc, calories));
+  @PostMapping(value = "/add")
+  public String addMeal(@RequestParam(name = "type") String type,
+                        @RequestParam(required = false, name = "desc") String desc,
+                        @RequestParam(required = false, name = "date") String date,
+                        @RequestParam(name = "calorie") int calorie) throws Exception{
+    if (date.isEmpty()) {
+      mealRepository.save(new Meal(type, desc, calorie));
+    } else {
+      mealRepository.save(new Meal(date, type, desc, calorie));
+    }
+    return "redirect:/";
+  }
+
+  @PutMapping(value = "/save")
+  public String saveChange(@RequestParam(name = "id") long id,
+                           @RequestParam(name = "type") String type,
+                           @RequestParam(required = false, name = "desc") String desc,
+                           @RequestParam(required = false, name = "date") String date,
+                           @RequestParam(name = "calorie") int calorie) throws Exception{
+    mealRepository.findOne(id).setDate(date);
+    mealRepository.findOne(id).setType(type);
+    mealRepository.findOne(id).setDescription(desc);
+    mealRepository.findOne(id).setCalorie(calorie);
+    mealRepository.save(mealRepository.findOne(id));
     return "redirect:/";
   }
 }
