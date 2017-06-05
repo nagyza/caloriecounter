@@ -1,5 +1,6 @@
 package com.greenfox.caloriecounter.controller;
 
+import com.greenfox.caloriecounter.model.CalorieStats;
 import com.greenfox.caloriecounter.model.Meal;
 import com.greenfox.caloriecounter.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,17 @@ public class MainRestController {
   @Autowired
   MealRepository mealRepository;
 
+  @Autowired
+  CalorieStats calorieStats;
+
   @GetMapping(value = "/getmeals")
   public List<Meal> getMeals() {
-    List<Meal> meals = new ArrayList<>();
-    for (Meal meal : mealRepository.findAll()) {
-      meals.add(meal);
-    }
-    return meals;
+    return mealRepository.findAll();
+  }
+
+  @GetMapping(value = "/getstats")
+  public CalorieStats getStats() {
+    calorieStats.calorieStats(mealRepository.findAll());
+    return calorieStats;
   }
 }
