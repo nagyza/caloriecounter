@@ -1,11 +1,16 @@
 package com.greenfox.caloriecounter.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "mealtypes")
 public class MealType {
 
@@ -16,26 +21,11 @@ public class MealType {
   @Column(name = "ord")
   private int inDay;
 
-  public int getInDay() {
-    return inDay;
-  }
-
-  public void setInDay(int inDay) {
-    this.inDay = inDay;
-  }
 
   public MealType() {
   }
 
   public MealType(String typeOfMeal) {
-    this.typeOfMeal = typeOfMeal;
-  }
-
-  public String getTypeOfMeal() {
-    return typeOfMeal;
-  }
-
-  public void setTypeOfMeal(String typeOfMeal) {
     this.typeOfMeal = typeOfMeal;
   }
 }
