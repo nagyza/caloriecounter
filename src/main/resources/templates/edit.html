@@ -36,7 +36,7 @@
           </td>
           <td><input type="text" th:name="desc"/></td>
           <td><input type="text" th:name="date"/></td>
-          <td><input type="text" th:name="calorie"/></td>
+          <td><input type="text" th:name="calorie" required="required"/></td>
           <td><button type="submit" value="save" class="pure-button pure-button-primary">Save</button></td>
         </form>
       </tr>
@@ -56,7 +56,7 @@
           </td>
           <td><input th:type="text" th:name="desc" th:value="${mealToEdit.description}"/></td>
           <td><input th:type="text" th:name="date" th:value="${mealToEdit.date}"/></td>
-          <td><input th:type="text" th:name="calorie" th:value="${mealToEdit.calorie}"/></td>
+          <td><input th:type="text" th:name="calorie" th:value="${mealToEdit.calorie}" required="required"/></td>
           <td><button type="submit" value="save" class="pure-button pure-button-primary">Save</button></td>
         </form>
       </tr>
