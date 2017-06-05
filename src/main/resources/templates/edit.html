@@ -11,35 +11,56 @@
 <body>
   <h1>Calories</h1>
   <br/>
-  <form method="get" action="/save">
-    <table class="pure-table pure-table-bordered">
-      <thead>
-        <tr class="headline">
-          <th>Type</th>
-          <th>Food description</th>
-          <th>Calories</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
+  <table class="pure-table pure-table-bordered">
+    <thead>
+      <tr class="headline">
+        <th></th>
+        <th>Type</th>
+        <th>Food description</th>
+        <th>Date (yyyy-mm-dd)</th>
+        <th>Calories</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody th:if="${editId} == 0">
+      <tr>
+        <form th:method="POST" th:action="@{/add}">
+          <td><input type="hidden" th:name="id"/></td>
           <td>
-            <select>
-            <option th:each="mealtype : ${mealtypes}">
-              <span th:value="${mealtype.typeOfMeal}" th:text="${mealtype.typeOfMeal}"></span>
+            <select th:name="type">
+            <option th:each="mealtype : ${mealtypes}"
+                    th:value="${mealtype.typeOfMeal}"
+                    th:text="${mealtype.typeOfMeal}">
             </option>
             </select>
           </td>
-          <td>
-            <input type="text" th:name="desc"/>
-          </td>
-          <td>
-            <input type="text" th:name="calories"/>
-          </td>
+          <td><input type="text" th:name="desc"/></td>
+          <td><input type="text" th:name="date"/></td>
+          <td><input type="text" th:name="calorie"/></td>
           <td><button type="submit" value="save" class="pure-button pure-button-primary">Save</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+        </form>
+      </tr>
+    </tbody>
+    <tbody th:if="${editId} > 0">
+      <tr>
+        <form th:action="@{/save}" th:method="PUT">
+          <td><input th:type="hidden" th:name="id" th:value="${mealToEdit.id}"/></td>
+          <td>
+            <select th:name="type">
+              <option th:each="mealtype : ${mealtypes}"
+                      th:value="${mealtype.typeOfMeal}"
+                      th:text="${mealtype.typeOfMeal}"
+                      th:selected="${mealtype.typeOfMeal} == ${mealToEdit.type}">
+              </option>
+            </select>
+          </td>
+          <td><input th:type="text" th:name="desc" th:value="${mealToEdit.description}"/></td>
+          <td><input th:type="text" th:name="date" th:value="${mealToEdit.date}"/></td>
+          <td><input th:type="text" th:name="calorie" th:value="${mealToEdit.calorie}"/></td>
+          <td><button type="submit" value="save" class="pure-button pure-button-primary">Save</button></td>
+        </form>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>
