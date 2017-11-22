@@ -1,6 +1,7 @@
 package com.greenfox.caloriecounter.controller;
 
 import com.greenfox.caloriecounter.model.Meal;
+import com.greenfox.caloriecounter.model.MealType;
 import com.greenfox.caloriecounter.repository.MealRepository;
 import com.greenfox.caloriecounter.repository.MealTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +52,12 @@ public class MainController {
                            @RequestParam(required = false, name = "desc") String desc,
                            @RequestParam(required = false, name = "date") String date,
                            @RequestParam(name = "calorie") int calorie) throws Exception{
-    mealRepository.findOne(id).setDate(date);
-    mealRepository.findOne(id).setType(type);
-    mealRepository.findOne(id).setDescription(desc);
-    mealRepository.findOne(id).setCalorie(calorie);
-    mealRepository.save(mealRepository.findOne(id));
+    Meal mealToUpdate = mealRepository.findOne(id);
+    mealToUpdate.setDate(date);
+    mealToUpdate.setType(type);
+    mealToUpdate.setDescription(desc);
+    mealToUpdate.setCalorie(calorie);
+    mealRepository.save(mealToUpdate);
     return "redirect:/";
   }
 
